@@ -32,7 +32,7 @@ jobs:
       with:
         context: src/sample-api/
         push: true
-        tags: sample-api:{{version}}
-        label: sample-api:{{version}}
+        tags: sample-api:${{ version }}
+        label: sample-api:${{ version }}
     - name: Image digest
       run: echo Image pushed to docker hub ${{ steps.docker_build.outputs.digest }}
