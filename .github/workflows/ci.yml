@@ -1,5 +1,5 @@
 
-name: Build and push docker image.
+name: Build container demo.
 
 on:
   push:
@@ -19,22 +19,22 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Build with Maven
+    - name: Build smaple-api with Maven
       run: mvn clean install --file src/sample-api/pom.xml
     - name: Get sample-api version
       run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec --file src/sample-api/pom.xml)
-      id: project
+      id: sampleapiversion
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with: 
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
+    - name: Build and push Sample API Docker Image to DockerHub
       id: docker_build
       uses: docker/build-push-action@v2
       with:
         context: src/sample-api/
         push: true
-        tags: kartikmavani/sample-api:${{ steps.project.outputs.version }}
+        tags: kartikmavani/sample-api:${{ steps.sampleapiversion.outputs.version }}
     - name: Image digest
       run: echo Image pushed to docker hub ${{ steps.docker_build.outputs.digest }}
