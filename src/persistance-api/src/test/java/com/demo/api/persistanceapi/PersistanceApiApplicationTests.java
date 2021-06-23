@@ -3,10 +3,10 @@ package com.demo.api.persistanceapi;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class PersistanceApiApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 
