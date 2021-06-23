@@ -30,11 +30,26 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push Sample API Docker Image to DockerHub
-      id: docker_build
+      id: docker_build_sample_api
       uses: docker/build-push-action@v2
       with:
         context: src/sample-api/
         push: true
         tags: kartikmavani/sample-api:${{ steps.sampleapiversion.outputs.version }}
     - name: Image digest
-      run: echo Image pushed to docker hub ${{ steps.docker_build.outputs.digest }}
+      run: echo Image pushed to docker hub ${{ steps.docker_build_sample_api.outputs.digest }}
+
+    - name: Build persistance-api with Maven
+      run: mvn clean install --file src/persistance-api/pom.xml
+    - name: Get persistance-api version
+      run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec --file src/persistance-api/pom.xml)
+      id: persistanceapiversion
+    - name: Build and push Persistance API Docker Image to DockerHub
+      id: docker_build_persistance_api
+      uses: docker/build-push-action@v2
+      with:
+        context: src/persistance-api/
+        push: true
+        tags: kartikmavani/persistance-api:${{ steps.persistanceapiversion.outputs.version }}
+    - name: Image digest
+      run: echo Image pushed to docker hub ${{ steps.docker_build_persistance_api.outputs.digest }}
