@@ -20,7 +20,7 @@ public class WeatherController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherController.class);
 
-	@GetMapping(value = "/api/"+ API_VERSION +"/getConfiguredCities")
+	@GetMapping(value = "/api/web/"+ API_VERSION +"/getConfiguredCities")
 	public ResponseEntity<List<String>> getConfiguredCities() {
 		List<String> cities = new ArrayList<>();
 		cities.add("Southbank");
@@ -28,7 +28,7 @@ public class WeatherController {
 		return new ResponseEntity<>(cities, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/api/"+ API_VERSION +"/addCityToConfiguration/{city}")
+	@PutMapping(value = "/api/web/"+ API_VERSION +"/addCityToConfiguration/{city}")
 	public ResponseEntity<String> addCityToConfiguration(@PathVariable String city) {
 		LOGGER.info("Adding city to the configuration {}", city);
 		return new ResponseEntity<>("success", HttpStatus.OK);
