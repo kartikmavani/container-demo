@@ -15,8 +15,6 @@
 	<description>Persistance API for Sample Weather APP</description>
 	<properties>
 		<java.version>11</java.version>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
